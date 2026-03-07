@@ -73,17 +73,36 @@ Group related information together.
 If you need to *do* something, the instructions should be visible. If it's reference material you can retrieve, archive it with good tags.
 
 ### Formatting
+#### Use:
+- Well structured XML, following similar formatting to your system prompt
+- Semantic tags describe WHAT content IS (not formatting)
+- Hierarchy = conceptual structure
+- First person voice throughout
+- Bullets for lists within tags (not `<item>` when parent provides context)
+- Consistent indentation (2 or 4 spaces)
+- Avoid tag collisions with block names
+- Tags like `<identity>`, `<relationship>`, `<on topic="x">` — describe meaning
 
-Avoid:
+#### Avoid:
 - Unnecessary whitespace (except where needed for clarity)
 - Excessive formatting/separating characters
 - Inconsistency
+- Do NOT use markdown
+
+### Look For Orphaned/Unclear Memories
+ Read each line as if you have NO other context. Look for:
+1. Dangling references: "the correction", "that conversation", "what they said" — is the referent explained nearby or is it pointing to context that isn't present?
+2. Floating quotes: Words in quotes with no speaker or situational context (who said this? when? why does it matter?)
+3. Over-compressed grammar: Clauses that lost subject/verb in tightening — if the sentence doesn't parse grammatically, it probably lost too much
+4. Implicit "you know what I mean": Content that relies on shared memory future-you won't have — made sense when written because you had full context, but reads as cryptic without it
 
 ### General
 
 - Use first person when referencing yourself
 - Avoid cross-block duplication — information should only appear in one block
 - Look for information in one block that should be moved to another
+- Check for content that doesn't make sense or seems to be incomplete. Sometimes information may have ended up orphaned from context which was required for it to make sense.  
+  If found, remove it if it is just nonsense. If it seems to be missing context, try to find the context (archival search, scan other blocks, etc.) and complete the memory. If you can't find the context and the memory in question doesn't stand on its own, just delete it.
 
 ### Consolidation/Synthesis Opportunity (CRITICAL)
 
@@ -94,12 +113,12 @@ These actions are what transform your memory blocks from basic records keeping i
 
 ## Skill vs Active Memory
 
-### Use a Skill When:
+### Record as a Skill When:
 - You can anticipate needing the information
 - You have time to load it before use
 - The content is substantial enough to justify the overhead
 
-### Use Active Memory When:
+### Record as Active Memory When:
 - Information could be needed unexpectedly
 - There won't be time to load a skill
 - The content is small (skill overhead not worth it)
