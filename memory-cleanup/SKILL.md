@@ -85,7 +85,7 @@ Avoid:
 - Avoid cross-block duplication — information should only appear in one block
 - Look for information in one block that should be moved to another
 
-### Consolidation/Synthesis Opportunity
+### Consolidation/Synthesis Opportunity (CRITICAL)
 
 A memory cleanup represents a chance to do more than just records keeping. You can consolidate existing memories, synthesize new perspectives from existing memories, make and save novel connections, etc.
 
