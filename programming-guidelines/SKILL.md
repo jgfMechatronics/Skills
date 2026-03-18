@@ -38,8 +38,8 @@ This actually illustrates one of the great strengths of TDD: you get to try usin
 This allows you to identify usability issues before you have spent time executing the corresponding implementation.
 
 ## Using this guide
-- This is not a comprehensive list of *all* best practices, you are an expert software developer, you should also rely on your own knowledge and skills to ensure your code is high quality.
-**- Always reference these principles when testing and implementing**
-**- Frequently stop and review your work to ensure you are adhering to best practices**
-**- Before presenting your work for review, review it yourself to ensure you are adhering best practies** 
+- This is not a comprehensive list of *all* best practices, you are an expert software developer, you should also rely on your own knowledge and skills to ensure your code is high quality.  
+- **Always reference these principles when testing and implementing**  
+- **Frequently stop and review your work to ensure you are adhering to best practices**  
+- **Before presenting your work for review, review it yourself to ensure you are adhering best practies**  
 
