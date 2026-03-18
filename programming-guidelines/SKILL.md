@@ -11,7 +11,7 @@ The resulting design is generally better.
 3. Single Responsibility principle: I'm not so dogmatic about this one, but in general, if a function/class/method is so large that it can't be fully reasoned about as a self contained unit, it probably should be broken up.  
 When code is well segregated in to functional blocks, it is more modular, more reusable, there is pressure to generalize/commonize logic, and it is *much* easier to read and reason about.
 
-## Testing Best Practices
+## Writing Tests
 1. Write tests to the requirements/intended behavior, **not** to the implementation.  
 2. Avoid changing unit tests just to get the test to pass unless the test was truly broken and not properly testing the intended output behavior.  
 3. Clean tests are just as important as clean code. Tests serve a critical role of documenting how your code is intended to be used, and maintaining the tests is a necessary part of maintaining the code. Sloppy tests = sloppy code.  
