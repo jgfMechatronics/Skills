@@ -10,6 +10,7 @@ The resulting design is generally better.
 2. Code is read many more times than it is written. If the code is hard to read and reason about, it probably indicates the design or layout needs iteration.  
 3. Single Responsibility principle: I'm not so dogmatic about this one, but in general, if a function/class/method is so large that it can't be fully reasoned about as a self contained unit, it probably should be broken up.  
 When code is well segregated in to functional blocks, it is more modular, more reusable, there is pressure to generalize/commonize logic, and it is *much* easier to read and reason about.
+4. Name things for what they do: Good names make code self-documenting and eliminate the need for explanatory comments. If you're struggling to name something, that's often a sign the thing itself isn't well-defined yet.
 
 ## Writing Tests
 1. Write tests to the requirements/intended behavior, **not** to the implementation.  

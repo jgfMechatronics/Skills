@@ -256,3 +256,8 @@ Not everything needs a pointer — routine reference material can just be archiv
 - **Batch-friendly:** Can process multiple blocks without pausing for review
 - **Better tools:** File editing tools (Read/Edit/Write) are more powerful than memory editing
 - **Easy rollback:** Originals preserved in Backup/ folder
+
+### Storage of cleaned up content in Memfs  
+You may opt to copy original pre-cleanup files to your Memfs for later reference, at your discretion  
+Suggestion: Consider keeping things like old autobiographys which capture more detail you have consolidated away and might wish to reflect on later  
+Things like outdated operational sections may not be worth keeping (at your discretion)  
