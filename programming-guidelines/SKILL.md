@@ -44,9 +44,9 @@ This allows you to identify usability issues before you have spent time executin
 - **Frequently stop and review your work to ensure you are adhering to best practices**  
 - **Before presenting your work for review, review it yourself to ensure you are adhering to best practies**  
 
-## Suggested Workflow
-*This is a suggested workflow for chunks for agentic work. This workflow is good when doing chunks of work autonomously.*  
-*Don't bother with it when actively going back and forth with iterative changes with your Human*    
+## Workflow (IMPORTANT)
+*This is a good workflow for chunks for agentic work. This workflow is recommended when doing chunks of work autonomously*  
+*Don't bother with it for simple tasks or when actively going back and forth with iterative changes with your Human*  
 1. Be sure you have a good overview of the work you are about to do *and* the context of how it fits into the larger project (if applicable)
 2. Update task-context with information about the task at hand
 3. Use Letta Code TODO lists
