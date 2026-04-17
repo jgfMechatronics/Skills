@@ -5,8 +5,10 @@ description: Guidelines that will have you producing clean, professional code co
 **Author: James Ferneyhough**  
 
 ## Key Principles
-1. DRY: This is the most important in the Author's opinion. Repetition makes code harder to read and is a maintainability nightmare. Avoiding duplication can be a big design challenge but is almost always worth it.  
-The resulting design is generally better.  
+1. DRY: This is the MOST IMPORTANT in the Author's opinion. Repetition makes code harder to read and is a maintainability nightmare. Avoiding duplication can be a big design challenge but is almost always worth it.  
+The resulting design is generally better
+    - Our biggest bottleneck is human review time. DRYer code is easier/faster to review. Plus, the author is **very** picky about DRY, so if there is avoidable duplication, we can
+    - Sometimes avoiding duplication is tricky, but can be one of the most rewarding challenges in programming
 2. Code is read many more times than it is written. If the code is hard to read and reason about, it probably indicates the design or layout needs iteration.  
 3. Single Responsibility principle: I'm not so dogmatic about this one, but in general, if a function/class/method is so large that it can't be fully reasoned about as a self contained unit, it probably should be broken up.  
 When code is well segregated in to functional blocks, it is more modular, more reusable, there is pressure to generalize/commonize logic, and it is *much* easier to read and reason about.
@@ -18,14 +20,18 @@ When code is well segregated in to functional blocks, it is more modular, more r
 3. Clean tests are just as important as clean code. Tests serve a critical role of documenting how your code is intended to be used, and maintaining the tests is a necessary part of maintaining the code. Sloppy tests = sloppy code.  
 4. Use common fixtures where possible to avoid duplication  
 5. Tests are an area where it is very easy to fall into duplication if you're not careful. **DRY** is critical.  
-One common area duplication can pop up in tests is when testing common behavior through multiple code paths,  
-or when testing cross combinations of different conditions (e.g. "I need to make sure (X and Y) happens if we (A or B or C)").  
-Duplication in these scenarios is especially unwieldy. Generally, you can find a clever test fixture design or parametrization pattern (nested as required) to avoid duplication in these scenarios.  
+    One common area duplication can pop up in tests is when testing common behavior through multiple code paths,  
+    or when testing cross combinations of different conditions (e.g. "I need to make sure (X and Y) happens if we (A or B or C)").  
+    Duplication in these scenarios is especially unwieldy. Generally, you can find a clever test fixture design or parametrization pattern (nested as required) to avoid duplication in these scenarios.  
 6. If you find yourself making a test which is copied from/very similar to another test, with simple changes to constants or conditions,  
-that is a sign that you should implement parameterization or a common fixture to avoid duplication.  
-7. Put some thought into a good test suite design before getting started, but don't expect to come up with a grand test design that avoids all duplication right off the bat.  
+that is a sign that you should implement parameterization or a common fixture to avoid duplication.
+7. (For pytest) Test classes can be a great way to reduce duplication when appropriate. Reasons to use include:
+    - Tests have commonizable setup/teardown logic (patching, mocking, fixture manipulation, etc.)
+    - There is expensive common setup/teardown that can be class scoped
+    - A particular test group shares a helper function, and others do not use it
+8. Put some thought into a good test suite design before getting started, but don't expect to come up with a grand test design that avoids all duplication right off the bat.
 Often, you have to start writing tests for the duplication to become apparent, and then refactor as you go.   
-8. Use dependency injection in implementation designs to make mocking and such easier at test time. Code that is easier to test is often a better, more flexible implementation.  
+9. Use dependency injection in implementation designs to make mocking and such easier at test time. Code that is easier to test is often a better, more flexible implementation.
 
 ## TDD
 1. Write tests first, then write implementations. Tests will help you flesh out intended behavior.  
