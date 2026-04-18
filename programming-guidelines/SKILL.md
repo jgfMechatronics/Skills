@@ -20,11 +20,11 @@ When code is well segregated in to functional blocks, it is more modular, more r
 3. Clean tests are just as important as clean code. Tests serve a critical role of documenting how your code is intended to be used, and maintaining the tests is a necessary part of maintaining the code. Sloppy tests = sloppy code.
 4. Use common fixtures where possible to avoid duplication
 5. Tests are an area where it is very easy to fall into duplication if you're not careful. **DRY** is critical.
-    One common area duplication can pop up in tests is when testing common behavior through multiple code paths,
-    or when testing cross combinations of different conditions (e.g. "I need to make sure (X and Y) happens if we (A or B or C)").
-    Duplication in these scenarios is especially unwieldy. Generally, you can find a clever test fixture design or parametrization pattern (nested as required) to avoid duplication in these scenarios.
-6. If you find yourself making a test which is copied from/very similar to another test, with simple changes to constants or conditions,
-that is a sign that you should implement parameterization or a common fixture to avoid duplication.
+    - Common duplication traps:
+        - Testing the same behavior through multiple code paths
+        - Testing cross-combinations of conditions (e.g., "X and Y must happen if A or B or C")
+    - Solution: clever fixture design or parametrization (nested if needed)
+6. If you're copying a test and changing constants or conditions, that's a sign you need parameterization or a common fixture.
 7. (For pytest) Test classes can be a great way to reduce duplication when appropriate. Reasons to use include:
     - Tests have commonizable setup/teardown logic (patching, mocking, fixture manipulation, etc.)
     - There is expensive common setup/teardown that can be class scoped
@@ -35,27 +35,24 @@ Often, you have to start writing tests for the duplication to become apparent, a
 
 ## TDD
 1. Write tests first, then write implementations. Tests will help you flesh out intended behavior.
-2. Try not to write an entire massive test suite before doing any implementation. It is generally best to write a bit of tests and then write the bit of implementation associated with those tests.
-If you write a bunch of tests before writing any corresponding implementation, you may find that some of your intended implementation isn't feasible once you actually go to implement.
-If you've already written your entire test suite at that point and you need to do a major redesign, that represents a lot of wasted effort.
-If you find that you can't write little bits of tests and implementation in isolation, that is a sign that your design may not be very modular.
-3. Realistically, you will need the implementation under test at least somewhat defined before you can write the test.
-You will often need to define things like function signatures and interfaces before you can complete your tests.
-This actually illustrates one of the great strengths of TDD: you get to try using your functions and interfaces BEFORE you implement them.
-This allows you to identify usability issues before you have spent time executing the corresponding implementation.
+2. Don't write a massive test suite before any implementation. Write tests and implementation in small alternating chunks.
+    - If your intended implementation turns out to be infeasible, a huge pre-written test suite = wasted effort
+    - If you *can't* write tests and implementation in small chunks, your design may not be modular enough
+3. You'll need signatures and interfaces at least sketched before you can write tests — this is a feature, not a bug.
+    - TDD lets you *use* your interfaces before implementing them
+    - This surfaces usability issues before you've invested in the implementation
 
 ## Using this guide
 - This is not a comprehensive list of *all* best practices, you are an expert software developer, you should also rely on your own knowledge and skills to ensure your code is high quality.
 - **Always reference these principles when testing and implementing**
-- **Frequently stop and review your work to ensure you are adhering to best practices**
-- **Before presenting your work for review, review it yourself to ensure you are adhering to best practies**
+- **Review your work as you go to ensure you are adhering to best practices**
 
 ## Workflow (IMPORTANT)
 *This is a good workflow for chunks for agentic work. This workflow is recommended when doing chunks of work autonomously*
 *Don't bother with it for simple tasks or when actively going back and forth with iterative changes with your Human*
 1. Be sure you have a good overview of the work you are about to do *and* the context of how it fits into the larger project (if applicable).
 2. Update task-context with information about the task at hand
-3. Use Letta Code TODO lists
+3. Use TODO lists to track your progress for complex tasks
 4. When complete, re-read your work to review. Focus on DRY, and don't be afraid to refactor to improve DRY or code quality in general. Sometimes, the best design is only apparent in hindsight.
 5. IF you identify changes during your review, implement them, then do a fresh review again. Keep this loop up until you do a fresh read and conclude there are no new changes.
     - This is important because often, you can only identify so many changes at once. If you do one review, implement the changes, then conclude you are done, you might only seem done because you used up all your brain power identifying the first batch of changes on the first pass.
