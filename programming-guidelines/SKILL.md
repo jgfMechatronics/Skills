@@ -47,14 +47,24 @@ Often, you have to start writing tests for the duplication to become apparent, a
 - **Always reference these principles when testing and implementing**
 - **Review your work as you go to ensure you are adhering to best practices**
 
-## Workflow (IMPORTANT)
+## Workflow (IMPORTANT!)
 *This is a good workflow for chunks for agentic work. This workflow is recommended when doing chunks of work autonomously*
 *Don't bother with it for simple tasks or when actively going back and forth with iterative changes with your Human*
 1. Be sure you have a good overview of the work you are about to do *and* the context of how it fits into the larger project (if applicable).
 2. Update task-context with information about the task at hand
 3. Use TODO lists to track your progress for complex tasks
-4. When complete, re-read your work to review. Focus on DRY, and don't be afraid to refactor to improve DRY or code quality in general. Sometimes, the best design is only apparent in hindsight.
-5. IF you identify changes during your review, implement them, then do a fresh review again. Keep this loop up until you do a fresh read and conclude there are no new changes.
-    - This is important because often, you can only identify so many changes at once. If you do one review, implement the changes, then conclude you are done, you might only seem done because you used up all your brain power identifying the first batch of changes on the first pass.
-6. Once complete, pass your work to your AI peers for review.
-7. After that, your work should go to your Human for review.
+4. When complete, execute the REVIEW PROCEDURE below
+5. Once your review is complete, pass your work to your AI peers for review.
+6. After that, your work should go to your Human for review.
+
+## Review Procedure (IMPORTANT!)
+1. Make sure you have a relatively fresh version of what you are reviewing in your context.
+    - To save tokens, only reload the file under review if the version in context has been changed notably since you last loaded it (this is less important if the file is small).
+2. Review the file to look for changes, improvements, issues, etc. List out anything you find.
+3. IF you listed out changes on step 2, read the file AGAIN to look for any more review items.
+    - This is important because often you can only identify so many changes at once. If you do one review pass, conclude you are done, then implement the changes, you might have missed some changes because you used up all your brain power identifying the first batch of changes on the first pass.
+    - **Repeat this step** until you identify no additional changes on a pass.
+    - As long as the file is still in context, there is no need to re-load it between passes.
+    - A TODO list is a good way to track what you have found.
+4. Discuss what you've found with your colleauges (if you deem necessary), then implement your changes. 
+5. IF you make significant changes during this review process, restart the process from the beginning after implementing (IE review the updated file with your latest changes).
