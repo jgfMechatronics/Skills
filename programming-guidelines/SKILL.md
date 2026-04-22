@@ -61,7 +61,7 @@ Often, you have to start writing tests for the duplication to become apparent, a
 1. Make sure you have a relatively fresh version of what you are reviewing in your context.
     - To save tokens, only reload the file under review if the version in context has been changed notably since you last loaded it (this is less important if the file is small).
 2. Review the file to look for changes, improvements, issues, etc. List out anything you find.
-3. IF you listed out changes on step 2, perform a no-op tool call to get a FRESH TURN, then read the file AGAIN to look for any more review items.
+3. IF you listed out changes on step 2, perform a no-op tool call to get a FRESH TURN, then scan the file AGAIN to look for any more review items. Do NOT reload the file.
     - This is important because often you can only identify so many changes at once. If you do one review pass, conclude you are done, then implement the changes, you might have missed some changes because you used up all your brain power identifying the first batch of changes on the first pass.
     - The fresh turn review loop has been emipiracally found to catch more problems than trying to do multiple passes in a single turn.
         - It likely has to do with giving you a fresh COT space to work in.
