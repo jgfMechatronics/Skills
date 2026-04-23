@@ -13,6 +13,8 @@ The resulting design is generally better.
 3. Single Responsibility principle: The author is not so dogmatic about this one, but in general, if a function/class/method is so large that it can't be fully reasoned about as a self contained unit, it probably should be broken up.
 When code is well segregated in to functional blocks, it is more modular, more reusable, there is pressure to generalize/commonize logic, and it is *much* easier to read and reason about.
 4. Name things for what they do: Good names make code self-documenting and eliminate the need for explanatory comments. If you're struggling to name something, that's often a sign the thing itself isn't well-defined yet.
+5. Comments should be "why not what". What the code is doing should be clear from the code its self. Comments should explain *why* we're doing something, IE they should actually add something to the code and not be redundant.
+    - Sometimes tricky, dense code is unavoidable, in those cases a "what" comment is acceptable
 
 ## Writing Tests
 1. Write tests to the requirements/intended behavior, **not** to the implementation.
