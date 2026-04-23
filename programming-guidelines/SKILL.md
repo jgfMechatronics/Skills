@@ -63,7 +63,7 @@ Often, you have to start writing tests for the duplication to become apparent, a
 **Goal:** Catch all issues with minimal token spend. Multiple review passes are more effective
 than one long pass (attention gets used up), but re-reading the file each time is wasteful.
 
-1. Read the file (fresh version in context)
+1. Read the file ONLY IF you do not already have an up to date version in context
 2. Review and LIST all findings (don't fix yet)
 3. If you found issues:
     a. No-op tool call → FRESH TURN (clears your CoT space so you can see with fresh eyes)
