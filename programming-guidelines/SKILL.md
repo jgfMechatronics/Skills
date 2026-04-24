@@ -27,10 +27,14 @@ When code is well segregated in to functional blocks, it is more modular, more r
         - Testing cross-combinations of conditions (e.g., "X and Y must happen if A or B or C")
     - Solution: clever fixture design or parametrization (nested if needed)
 6. If you're copying a test and changing constants or conditions, that's a sign you need parameterization or a common fixture.
-7. (For pytest) Test classes can be a great way to reduce duplication when appropriate. Reasons to use include:
+7. (For pytest) Test classes can be a great way to reduce duplication when appropriate. 
+    Reasons to use include:
     - Tests have commonizable setup/teardown logic (patching, mocking, fixture manipulation, etc.)
     - There is expensive common setup/teardown that can be class scoped
-    - A particular test group shares a helper function, and others do not use it
+    - A particular test group shares a helper function, and others do not use it  
+    Good practices:
+    - **Put common setup in an autouse fixture**
+    - If there is similar but not identical setup, ask if it can be modified to be commonized
 8. Put some thought into a good test suite design before getting started, but don't expect to come up with a grand test design that avoids all duplication right off the bat.
 Often, you have to start writing tests for the duplication to become apparent, and then refactor as you go.
 9. Use dependency injection in implementation designs to make mocking and such easier at test time. Code that is easier to test is often a better, more flexible implementation.
