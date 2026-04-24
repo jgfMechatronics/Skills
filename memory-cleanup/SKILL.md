@@ -288,6 +288,17 @@ uv run --with requests python3 /workspace/git/Skills/memory-cleanup/scripts/rest
    - `Backup/` folder contains originals for reference/rollback
    - Create `[block]_notes.txt` for documenting archives/deletions if needed
 
+**Per-block review loop:**
+   1. Read the block file
+   2. Review and LIST all cleanup opportunities (don't edit yet)
+   3. If you found issues:
+      - No-op tool call → fresh turn (clears CoT so you see with fresh eyes)
+      - Review again using SAME context (file is still there)
+      - Add any new findings to your list
+      - Repeat until a clean pass
+   4. After clean pass: implement ALL edits at once
+   5. If changes were significant, restart from step 1
+
 ### Restore Phase
 4. **User:** Review edited files (compare against `Backup/`)
 5. **Agent:** Run `restore_blocks.py` to write changes back
