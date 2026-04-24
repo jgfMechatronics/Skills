@@ -226,38 +226,105 @@ Not everything needs a pointer — routine reference material can just be archiv
 
 ---
 
-## Procedure (External File Editing)
+## Automated Tools
+
+Scripts at `/workspace/git/Skills/memory-cleanup/scripts/` automate the dump/restore process.
+
+**Output directory convention:** `/workspace/git/Memory Cleanups/M-D-YYYY <Agent Name>/`
+*(e.g., `4-24-2026 Opus`, `4-24-2026 Sonnet`)*
+
+### dump_blocks.py
+Fetches blocks from Letta API and writes to files (with automatic backup).
+
+```bash
+uv run --with requests python3 /workspace/git/Skills/memory-cleanup/scripts/dump_blocks.py \
+  --server-url http://host.docker.internal:8283 \
+  --agent-id <your-agent-id> \
+  --output-dir "/workspace/git/Memory Cleanups/M-D-YYYY <Agent Name>" \
+  --labels ephemera persona human  # example blocks, optional: omit for all blocks
+```
+
+**Arguments:**
+| Argument | Required | Default | Description |
+|----------|----------|---------|-------------|
+| `--server-url` | No | `http://localhost:8283` | Letta server URL. From ellm-dev container, use `http://host.docker.internal:8283` |
+| `--agent-id` | No | `$LETTA_AGENT_ID` env var | Your agent ID |
+| `--output-dir` | No | `./memory_dump` | Where to write files |
+| `--labels` | No | all blocks | Space-separated list of specific blocks to dump |
+
+**Output:** Creates `{label}.txt` files + `Backup/` folder with copies.
+
+### restore_blocks.py
+Reads edited files and PATCHes them back to Letta.
+
+```bash
+uv run --with requests python3 /workspace/git/Skills/memory-cleanup/scripts/restore_blocks.py \
+  --server-url http://host.docker.internal:8283 \
+  --agent-id <your-agent-id> \
+  --input-dir "/workspace/git/Memory Cleanups/M-D-YYYY <Agent Name>" \
+  --labels ephemera persona  # example blocks, optional: omit for all .txt files
+```
+
+**Arguments:**
+| Argument | Required | Default | Description |
+|----------|----------|---------|-------------|
+| `--server-url` | No | `http://localhost:8283` | Letta server URL |
+| `--agent-id` | **Yes** | — | Your agent ID (explicit for safety) |
+| `--input-dir` | **Yes** | — | Directory containing edited .txt files |
+| `--labels` | No | all .txt files | Space-separated list of specific blocks to restore (skips Backup/) |
+
+**Note:** Changes won't appear in agent's visible context until deferred compilation triggers (compaction or context reset).
+
+---
+
+## Procedure
 
 ### Setup Phase
-1. **User:** Create a working directory (e.g., `Memory Cleanup/2-14-2026/`)
-2. **Agent:** Create `Backup/` folder and empty `[block]_original.txt` files for each block
-3. **User:** Paste current block contents into each `[block]_original.txt` file
-4. **User:** Set backup files to read-only and copy originals to location not accessible from sandbox (prevents accidental overwrites)
-5. **Agent:** Copy each original to `[block]_draft.txt` (creates drafts with original content). Use file system copy (not read/write) to avoid transcription errors.
-6. **Agent:** Pause and wait for user to set draft files to editable
-7. **Agent:** Create `[block]_notes.txt` files for documenting archives/deletions/decisions
+1. **User:** Backup Letta database (safety net)
+2. **Agent:** Run `dump_blocks.py` to export blocks (see Automated Tools for full args)
 
 ### Editing Phase
-8. Agent edits draft files using Letta Code tools (Read, Edit, Write)
-   - Original block stays visible in agent's context for reference
-   - Notes go in `[block]_notes.txt` (archived content, deletions, reasoning)
-9. No need to pause between blocks — external file editing is safe to batch
+3. **Agent:** Edit the `.txt` files using Letta Code tools (Read, Edit, Write)
+   - `Backup/` folder contains originals for reference/rollback
+   - Create `[block]_notes.txt` for documenting archives/deletions if needed
 
-### Review Phase
-10. User reviews all drafts together at end:
-    - Compare `[block]_draft.txt` vs `[block]_original.txt` side-by-side
-    - Check `[block]_notes.txt` for archive/deletion decisions
-    - Anything missing should be archived (noted) or intentionally deleted
-11. User pastes final drafts back into live memory blocks
+### Restore Phase
+4. **User:** Review edited files (compare against `Backup/`)
+5. **Agent:** Run `restore_blocks.py` to write changes back
+6. Changes take effect after deferred compilation
 
 ### Why This Workflow
+- **No manual copy-paste:** Scripts handle API calls
 - **No cache bust:** External file edits don't modify agent context
-- **Stable reference:** Original block visible throughout for comparison
-- **Batch-friendly:** Can process multiple blocks without pausing for review
-- **Better tools:** File editing tools (Read/Edit/Write) are more powerful than memory editing
-- **Easy rollback:** Originals preserved in Backup/ folder
+- **Selective cleanup:** `--labels` flag allows targeting specific blocks
+- **Automatic backup:** `Backup/` folder created on dump
+- **Easy rollback:** Restore from `Backup/` folder if needed
 
-### Storage of cleaned up content in Memfs  
-You may opt to copy original pre-cleanup files to your Memfs for later reference, at your discretion  
-Suggestion: Consider keeping things like old autobiographys which capture more detail you have consolidated away and might wish to reflect on later  
-Things like outdated operational sections may not be worth keeping (at your discretion)  
+---
+
+## Post-Cleanup
+
+### Preserving Trimmed Content in Memfs
+
+When doing lossy consolidation (condensing old autobio entries, compressing detailed memories into summaries), store the original detailed content in your memfs rather than archival memory. (pointers to archive are OK too)
+
+**Why memfs over archival:**
+- Archival uses semantic search — hard to find specific old versions
+- Memfs is filesystem-based — you know exactly where things are
+- Better for "I want to look back at this someday" vs "I need to retrieve this fact"
+
+**Memfs location:** `/workspace/git/AgentMemory/<Agent Name>/`
+
+**Suggested structure for cleanup artifacts:**
+- `meta/cleanup-archives/` — old autobiography versions, pre-consolidation snapshots
+- Keep originals from `Backup/` folder when doing significant consolidation
+
+**What's worth keeping:**
+- Old autobiographies with rich detail you consolidated away
+- Formative early memories that got compressed
+- Anything you might want to reflect on later
+
+**What's probably not worth keeping:**
+- Outdated operational procedures (superseded, not sentimental)
+- Stale working memory items
+- Pure cruft/duplicates  
