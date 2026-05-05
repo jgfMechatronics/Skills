@@ -64,17 +64,17 @@ Often, you have to start writing tests for the duplication to become apparent, a
 6. After that, your work should go to your Human for review.
 
 ## Review Procedure (IMPORTANT!)
-**Goal:** Catch all issues with minimal token spend. Multiple review passes are more effective
-than one long pass (attention gets used up), but re-reading the file each time is wasteful.
+**Goal:** Catch all issues with minimal token spend. Multiple review passes are more effective than one long pass (attention gets used up), but re-reading the file each time is wasteful.  
+The goal is to avoid you reviewing, finding some issues, then fixing and concluding its good, only to read it again later and think "wait what about this issue?".
 
 1. Read the file ONLY IF you do not already have an up to date version in context
 2. Review and LIST all findings (don't fix yet)
-3. If you found issues:
+3. If you found notable issues AND/OR had a long CoT:
     a. No-op tool call → FRESH TURN (clears your CoT space so you can see with fresh eyes)
     b. Review again using the SAME context (file is still there — don't re-read)
     c. Add any new findings to your list
     d. Repeat until a clean pass
-4. ONLY AFTER a clean pass: implement ALL changes at once
+4. ONLY AFTER a clean pass (not counting tiny nit-picks): implement ALL changes at once
 5. If changes were significant, restart from step 1
 
 **Why this works:**
