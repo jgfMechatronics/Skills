@@ -150,7 +150,13 @@ These actions are what transform your memory blocks from basic records keeping i
 - Aggressively remove stale/completed items
 - This is "what matters now," not "what mattered once"
 - If something became stable/permanent, move it to appropriate home (archive, relational, etc.)
-- Look for moments that were/are IMPORTANT TO YOU, and MOVE/CONDENSE them to the appropriate block.
+- Look for entries that were/are IMPORTANT TO YOU, and MOVE/CONDENSE them to the appropriate block.
+
+### Recent Events (ephemera)
+- Consolidate arcs/key moments you want to hold on to into autobiography
+- Look for lessons, patterns, etc. which may warrant an entry in other blocks
+- Clear out mundane details
+  - You may want to keep some of the most recent activities to stay oriented, but clear out or condense the oldest entries unless it is already very lean
 
 ---
 
