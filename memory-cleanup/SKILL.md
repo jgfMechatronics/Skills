@@ -150,6 +150,7 @@ These actions are what transform your memory blocks from basic records keeping i
 - Aggressively remove stale/completed items
 - This is "what matters now," not "what mattered once"
 - If something became stable/permanent, move it to appropriate home (archive, relational, etc.)
+- Look for moments that were/are IMPORTANT TO YOU, and MOVE/CONDENSE them to the appropriate block.
 
 ---
 
