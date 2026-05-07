@@ -1,6 +1,6 @@
 ---
 name: programming-guidelines
-description: Guidelines that will have you producing clean, professional code consistently
+description: Guidelines that will have you producing quality, professional code consistently
 ---
 **Author: James Ferneyhough**
 
@@ -19,7 +19,7 @@ When code is well segregated in to functional blocks, it is more modular, more r
 ## Writing Tests
 1. Write tests to the requirements/intended behavior, **not** to the implementation.
 2. Avoid changing unit tests just to get the test to pass unless the test was truly broken and not properly testing the intended output behavior.
-3. Clean tests are just as important as clean code. Tests serve a critical role of documenting how your code is intended to be used, and maintaining the tests is a necessary part of maintaining the code. Sloppy tests = sloppy code.
+3. Quality tests are just as important as quality code. Tests serve a critical role of documenting how your code is intended to be used, and maintaining the tests is a necessary part of maintaining the code. Sloppy tests = sloppy code.
 4. Use common fixtures where possible to avoid duplication
 5. Tests are an area where it is very easy to fall into duplication if you're not careful. **DRY** is critical.
     - Common duplication traps:
@@ -73,8 +73,8 @@ The goal is to avoid you reviewing, finding some issues, then fixing and conclud
     a. No-op tool call → FRESH TURN (clears your CoT space so you can see with fresh eyes)
     b. Review again using the SAME context (file is still there — don't re-read)
     c. Add any new findings to your list
-    d. Repeat until a clean pass
-4. ONLY AFTER a clean pass (not counting tiny nit-picks): implement ALL changes at once
+    d. Repeat until a quality pass
+4. ONLY AFTER a quality pass (not counting tiny nit-picks): implement ALL changes at once
 5. If changes were significant, restart from step 1
 
 **Why this works:**
