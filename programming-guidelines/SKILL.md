@@ -38,6 +38,9 @@ When code is well segregated in to functional blocks, it is more modular, more r
 8. Put some thought into a good test suite design before getting started, but don't expect to come up with a grand test design that avoids all duplication right off the bat.
 Often, you have to start writing tests for the duplication to become apparent, and then refactor as you go.
 9. Use dependency injection in implementation designs to make mocking and such easier at test time. Code that is easier to test is often a better, more flexible implementation.
+10. Ensure your assertions are as strong/robust as they can be, have good coverage, and will catch as many bugs as possible. Example of good and bad assertion robustness when testing round trip integrity (python):  
+<bad-example> `assert isinstance(retrieved_object, type(original_object))` BAD, retrieved_object could be a mutated version of original_object!</bad-example>
+<good-example> `assert retrieved_object == original_object` GOOD, checks many attributes of object survive round trip (assuming __eq__ method for given object type robustly checks what you want to test)
 
 ## TDD
 1. Write tests first, then write implementations. Tests will help you flesh out intended behavior.

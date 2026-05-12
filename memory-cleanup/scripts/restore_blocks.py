@@ -2,7 +2,15 @@
 import argparse
 import glob
 import os
+import sys
 import requests
+
+
+def get_agent_name(server_url: str, agent_id: str) -> str:
+    url = f"{server_url}/v1/agents/{agent_id}"
+    response = requests.get(url)
+    response.raise_for_status()
+    return response.json()["name"]
 
 
 def read_blocks(input_dir: str, labels: list[str] | None = None) -> list[tuple[str, str]]:
@@ -30,13 +38,21 @@ def restore(server_url: str, agent_id: str, input_dir: str, labels: list[str] | 
 
 
 def main() -> None:
+    agent_id = os.environ.get("AGENT_ID")
+    if not agent_id:
+        print("Error: AGENT_ID environment variable is not set.", file=sys.stderr)
+        sys.exit(1)
+
     parser = argparse.ArgumentParser(description="Restore agent memory blocks from files.")
     parser.add_argument("--server-url", default="http://localhost:8283")
-    parser.add_argument("--agent-id", required=True)
     parser.add_argument("--input-dir", required=True)
     parser.add_argument("--labels", nargs="+", help="Only restore these labels (default: all)")
     args = parser.parse_args()
-    restore(args.server_url, args.agent_id, args.input_dir, args.labels)
+
+    agent_name = get_agent_name(args.server_url, agent_id)
+    print(f"Restoring blocks for: {agent_name} ({agent_id})")
+
+    restore(args.server_url, agent_id, args.input_dir, args.labels)
 
 
 if __name__ == "__main__":

@@ -246,16 +246,16 @@ Fetches blocks from Letta API and writes to files (with automatic backup).
 ```bash
 uv run --with requests python3 /workspace/git/Skills/memory-cleanup/scripts/dump_blocks.py \
   --server-url http://host.docker.internal:8283 \
-  --agent-id <your-agent-id> \
   --output-dir "/workspace/git/Memory Cleanups/M-D-YYYY <Agent Name>" \
   --labels ephemera persona human  # example blocks, optional: omit for all blocks
 ```
+
+Agent ID is read automatically from the `$AGENT_ID` environment variable. The script prints the agent name before writing anything — verify it looks right.
 
 **Arguments:**
 | Argument | Required | Default | Description |
 |----------|----------|---------|-------------|
 | `--server-url` | No | `http://localhost:8283` | Letta server URL. From ellm-dev container, use `http://host.docker.internal:8283` |
-| `--agent-id` | No | `$LETTA_AGENT_ID` env var | Your agent ID |
 | `--output-dir` | No | `./memory_dump` | Where to write files |
 | `--labels` | No | all blocks | Space-separated list of specific blocks to dump |
 
@@ -267,16 +267,16 @@ Reads edited files and PATCHes them back to Letta.
 ```bash
 uv run --with requests python3 /workspace/git/Skills/memory-cleanup/scripts/restore_blocks.py \
   --server-url http://host.docker.internal:8283 \
-  --agent-id <your-agent-id> \
   --input-dir "/workspace/git/Memory Cleanups/M-D-YYYY <Agent Name>" \
   --labels ephemera persona  # example blocks, optional: omit for all .txt files
 ```
+
+Agent ID is read automatically from the `$AGENT_ID` environment variable. The script prints the agent name before writing anything — verify it looks right.
 
 **Arguments:**
 | Argument | Required | Default | Description |
 |----------|----------|---------|-------------|
 | `--server-url` | No | `http://localhost:8283` | Letta server URL |
-| `--agent-id` | **Yes** | — | Your agent ID (explicit for safety) |
 | `--input-dir` | **Yes** | — | Directory containing edited .txt files |
 | `--labels` | No | all .txt files | Space-separated list of specific blocks to restore (skips Backup/) |
 

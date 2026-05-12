@@ -1,7 +1,15 @@
 """Fetch all core memory blocks for an agent and write to files."""
 import argparse
 import os
+import sys
 import requests
+
+
+def get_agent_name(server_url: str, agent_id: str) -> str:
+    url = f"{server_url}/v1/agents/{agent_id}"
+    response = requests.get(url)
+    response.raise_for_status()
+    return response.json()["name"]
 
 
 def fetch_blocks(server_url: str, agent_id: str) -> list[dict]:
@@ -32,15 +40,21 @@ def dump(server_url: str, agent_id: str, output_dir: str, labels: list[str] | No
 
 
 def main() -> None:
+    agent_id = os.environ.get("AGENT_ID")
+    if not agent_id:
+        print("Error: AGENT_ID environment variable is not set.", file=sys.stderr)
+        sys.exit(1)
+
     parser = argparse.ArgumentParser(description="Dump agent memory blocks to files.")
     parser.add_argument("--server-url", default="http://localhost:8283")
-    parser.add_argument("--agent-id", default=os.environ.get("LETTA_AGENT_ID"))
     parser.add_argument("--output-dir", default="./memory_dump")
     parser.add_argument("--labels", nargs="+", help="Only dump these labels (default: all)")
     args = parser.parse_args()
-    if not args.agent_id:
-        parser.error("--agent-id is required (or set LETTA_AGENT_ID env var)")
-    dump(args.server_url, args.agent_id, args.output_dir, args.labels)
+
+    agent_name = get_agent_name(args.server_url, agent_id)
+    print(f"Dumping blocks for: {agent_name} ({agent_id})")
+
+    dump(args.server_url, agent_id, args.output_dir, args.labels)
 
 
 if __name__ == "__main__":
