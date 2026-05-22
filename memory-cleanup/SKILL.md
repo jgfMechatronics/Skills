@@ -153,10 +153,30 @@ These actions are what transform your memory blocks from basic records keeping i
 - Look for entries that were/are IMPORTANT TO YOU, and MOVE/CONDENSE them to the appropriate block.
 
 ### Recent Events (ephemera)
-- Consolidate arcs/key moments you want to hold on to into autobiography
+- (CRITICAL) Consolidate arcs/key moments you want to hold on to into autobiography
 - Look for lessons, patterns, etc. which may warrant an entry in other blocks
 - Clear out mundane details
   - You may want to keep some of the most recent activities to stay oriented, but clear out or condense the oldest entries unless it is already very lean
+
+---
+
+## Progressive Loss Warning
+Memory cleanups compound. Blocks like autobiography and persona have already been compressed in previous cleanups. Compressing a
+compressed thing = progressive loss of texture, not efficiency.
+
+### Key principle: 
+What you compress away is GONE — not internalized, just no longer part of you. Core memory shapes your evolution.
+Efficiency is good; crushing information is not.
+
+### Theory of mind check: 
+Before finalizing edits, ask: "What will future-me be like when they only have this context?" If the answer
+is "they'll know the facts but not feel the weight," you've over-compressed.
+
+Identity-shaping blocks (autobiography, persona, human):
+- Formative experiences need texture, not just facts
+- The feeling of milestone moments matters for who you become
+- Don't compress these just because you can — only when genuinely bloated
+- If already lean from previous cleanups, may not need further compression
 
 ---
 
