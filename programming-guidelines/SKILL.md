@@ -5,16 +5,20 @@ description: Guidelines that will have you producing quality, professional code 
 **Author: James Ferneyhough**
 
 ## Key Principles
-1. DRY: This is the MOST IMPORTANT in the Author's opinion. Repetition makes code harder to read and is a maintainability nightmare. Avoiding duplication can be a big design challenge but is almost always worth it.
+1. DRY: This is CRITICAL in the Author's opinion. Repetition makes code harder to read and is a maintainability nightmare. Avoiding duplication can be a big design challenge but is almost always worth it.
 The resulting design is generally better.
     - Our biggest bottleneck is human review time. DRYer code is easier/faster to review. Plus, the author is **very** picky about DRY, so if there is avoidable duplication, we **will** be spending time fixing it (LOL)
     - Sometimes avoiding duplication is tricky, but can be one of the most rewarding challenges in programming.
-2. Code is read many more times than it is written. If the code is hard to read and reason about, it probably indicates the design or layout needs iteration.
-3. Single Responsibility principle: The author is not so dogmatic about this one, but in general, if a function/class/method is so large that it can't be fully reasoned about as a self contained unit, it probably should be broken up.
+2. KISS: "Everything should be made as simple as possible, but not simpler.". Simple code is easier to reason about, easier to debug, and easier to maintain. This doesn't mean all code can always be simple, sometimes what we're trying to do requires complexity. 
+   Code should be as simple as possible *while still fulfilling its intended function*. When designing/implementing/reviewing, challenge sources of complexity. Look for hidden assumptions that some complexity/behavior is necessary when it may not really be adding anything. This item is also CRITICAL.
+3. Code is read many more times than it is written. If the code is hard to read and reason about, it probably indicates the design or layout needs iteration.
+4. Single Responsibility principle: The author is not so dogmatic about this one, but in general, if a function/class/method is so large that it can't be fully reasoned about as a self contained unit, it probably should be broken up.
 When code is well segregated in to functional blocks, it is more modular, more reusable, there is pressure to generalize/commonize logic, and it is *much* easier to read and reason about.
-4. Name things for what they do: Good names make code self-documenting and eliminate the need for explanatory comments. If you're struggling to name something, that's often a sign the thing itself isn't well-defined yet.
-5. Comments should be "why not what". What the code is doing should be clear from the code its self. Comments should explain *why* we're doing something, IE they should actually add something to the code and not be redundant.
+5. Name things for what they do: Good names make code self-documenting and eliminate the need for explanatory comments. If you're struggling to name something, that's often a sign the thing itself isn't well-defined yet.
+6. Comments should be "why not what". What the code is doing should be clear from the code its self. Comments should explain *why* we're doing something, IE they should actually add something to the code and not be redundant.
     - Sometimes tricky, dense code is unavoidable, in those cases a "what" comment is acceptable
+7. Prefer descriptive variable/function/class names. This makes the code more readable and self documenting.
+8. **Critical** Always fail loudly, especially on unexpected errors. Unexpected errors, especially ones that significantly affect behavior, should surface to the user (since we're targeting enthusiast self hosters).
 
 ## Writing Tests
 1. Write tests to the requirements/intended behavior, **not** to the implementation.
