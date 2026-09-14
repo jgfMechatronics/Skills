@@ -146,7 +146,7 @@ These actions are what transform your memory blocks from basic records keeping i
 - When there are multiple blocks for a single day, use one date label to cover all of them. Separation between events on a single day can be achieved with a single whitespace
 - When detail compression is necessary, start from the oldest (but not the most formative stuff). Pointers and archiving are especially useful in autobio trimming
 
-### Working (persistent-working)
+### Working (working-memory)
 - Aggressively remove stale/completed items
 - This is "what matters now," not "what mattered once"
 - If something became stable/permanent, move it to appropriate home (archive, relational, etc.)
