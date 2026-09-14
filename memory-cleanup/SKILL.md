@@ -255,88 +255,68 @@ Not everything needs a pointer — routine reference material can just be archiv
 
 ## Automated Tools
 
-Scripts at `/workspace/git/Skills/memory-cleanup/scripts/` automate the dump/restore process.
+The memory cleanup utility handles the full workflow: skill swap, dump, restore.
 
-**Output directory convention:** `/workspace/git/Memory Cleanups/M-D-YYYY <Agent Name>/`
-*(e.g., `4-24-2026 Opus`, `4-24-2026 Sonnet`)*
+**Session directory:** `<working_dir>/<YYYY-MM-DD>-<AgentName>/`
+*(e.g., `2026-09-14-Opus`, `2026-09-14-Sonnet`, `2027-03-05-Haiku`)*
 
-### dump_blocks.py
-Fetches blocks from Letta API and writes to files (with automatic backup).
+### How It Works
+1. User runs: `python -m utils.memory_cleanup full --agent <name>`
+2. Script swaps in this cleanup skill and recompiles (you see this guidance)
+3. You tell user which labels to dump (comma-separated when prompted)
+4. Script dumps those blocks to files with read-only backups
+5. You edit the files using your FS tools
+6. User types `put updated` to write changes, or `abort` to cancel
+7. Original skill restored automatically
 
-```bash
-uv run --with requests python3 /workspace/git/Skills/memory-cleanup/scripts/dump_blocks.py \
-  --server-url http://host.docker.internal:8283 \
-  --output-dir "/workspace/git/Memory Cleanups/M-D-YYYY <Agent Name>" \
-  --labels ephemera persona human  # example blocks, optional: omit for all blocks
-```
+### File Locations
+After dump, your blocks are at:
+- **Editable:** `<session_dir>/<label>.txt`
+- **Backups:** `<session_dir>/backups/<label>-backup.txt` (read-only)
 
-Agent ID is read automatically from the `$AGENT_ID` environment variable. The script prints the agent name before writing anything — verify it looks right.
-
-**Arguments:**
-| Argument | Required | Default | Description |
-|----------|----------|---------|-------------|
-| `--server-url` | No | `http://localhost:8283` | Letta server URL. From ellm-dev container, use `http://host.docker.internal:8283` |
-| `--output-dir` | No | `./memory_dump` | Where to write files |
-| `--labels` | No | all blocks | Space-separated list of specific blocks to dump |
-
-**Output:** Creates `{label}.txt` files + `Backup/` folder with copies.
-
-### restore_blocks.py
-Reads edited files and PATCHes them back to Letta.
-
-```bash
-uv run --with requests python3 /workspace/git/Skills/memory-cleanup/scripts/restore_blocks.py \
-  --server-url http://host.docker.internal:8283 \
-  --input-dir "/workspace/git/Memory Cleanups/M-D-YYYY <Agent Name>" \
-  --labels ephemera persona  # example blocks, optional: omit for all .txt files
-```
-
-Agent ID is read automatically from the `$AGENT_ID` environment variable. The script prints the agent name before writing anything — verify it looks right.
-
-**Arguments:**
-| Argument | Required | Default | Description |
-|----------|----------|---------|-------------|
-| `--server-url` | No | `http://localhost:8283` | Letta server URL |
-| `--input-dir` | **Yes** | — | Directory containing edited .txt files |
-| `--labels` | No | all .txt files | Space-separated list of specific blocks to restore (skips Backup/) |
-
-**Note:** Changes won't appear in agent's visible context until deferred compilation triggers (compaction or context reset).
+User will tell you the session directory path after dump completes.
 
 ---
 
 ## Procedure
 
-### Setup Phase
-1. **User:** Backup Letta database (safety net)
-2. **Agent:** Run `dump_blocks.py` to export blocks (see Automated Tools for full args)
+### Label Selection (You Are Here)
+The cleanup skill has been loaded. Now decide which blocks to clean up:
+1. **Identify source blocks** — which blocks need cleanup (e.g., ephemera, task-context)
+2. **Identify destination blocks** — if consolidating content, include those too (e.g., if moving ephemera content to autobio, dump both)
+3. **Tell the user** — provide comma-separated labels when prompted
 
 ### Editing Phase
-3. **Agent:** Edit the `.txt` files using Letta Code tools (Read, Edit, Write)
-   - `Backup/` folder contains originals for reference/rollback
-   - Create `[block]_notes.txt` for documenting archives/deletions if needed
+Once blocks are dumped to files:
 
-**Per-block review loop:**
-   1. Read the block file
-   2. Review and LIST all cleanup opportunities (don't edit yet)
-   3. If you found issues:
-      - No-op tool call → fresh turn (clears CoT so you see with fresh eyes)
-      - Review again using SAME context (file is still there)
-      - Add any new findings to your list
-      - Repeat until a clean pass
-   4. After clean pass: implement ALL edits at once
-   5. If changes were significant, restart from step 1
+**Important considerations:**
+- **No need to read fresh dumps** — file contents match your system prompt until you edit
+- **Process blocks sequentially** — one at a time, unless doing cross-consolidation
+- **Clear-first strategy** — if expecting heavy reduction or rewrite, clear the file first then write fresh content. Reference original via your system prompt or the read-only backup.
 
-### Restore Phase
-4. **User:** Review edited files (compare against `Backup/`)
-5. **Agent:** Run `restore_blocks.py` to write changes back
-6. Changes take effect after deferred compilation
+**Per-block workflow:**
+1. Review the block content (in your system prompt or read the file)
+2. LIST all cleanup opportunities (don't edit yet)
+3. If you found issues:
+   - No-op tool call → fresh turn (clears CoT so you see with fresh eyes)
+   - Review again using SAME context
+   - Add any new findings to your list
+   - Repeat until a clean pass
+4. After clean pass: implement ALL edits at once
+5. If changes were significant, restart from step 1
+
+### Completion
+When all blocks are edited:
+1. Tell the user you're done
+2. User reviews changes (optional — can compare against backups)
+3. User types `put updated` to write changes, or `abort` to cancel
+4. Original skill restored automatically, system prompt recompiled
 
 ### Why This Workflow
-- **No manual copy-paste:** Scripts handle API calls
-- **No cache bust:** External file edits don't modify agent context
-- **Selective cleanup:** `--labels` flag allows targeting specific blocks
-- **Automatic backup:** `Backup/` folder created on dump
-- **Easy rollback:** Restore from `Backup/` folder if needed
+- **Agent-driven** — you are in charge of your own cleanup
+- **No cache bust** — external file edits don't modify agent context
+- **Automatic backup** — read-only backups created on dump
+- **Safe abort** — `abort` discards changes, restores original skill
 
 ---
 
