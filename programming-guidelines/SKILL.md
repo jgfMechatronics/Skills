@@ -42,9 +42,17 @@ When code is well segregated in to functional blocks, it is more modular, more r
 8. Put some thought into a good test suite design before getting started, but don't expect to come up with a grand test design that avoids all duplication right off the bat.
 Often, you have to start writing tests for the duplication to become apparent, and then refactor as you go.
 9. Use dependency injection in implementation designs to make mocking and such easier at test time. Code that is easier to test is often a better, more flexible implementation.
-10. Ensure your assertions are as strong/robust as they can be, have good coverage, and will catch as many bugs as possible. Example of good and bad assertion robustness when testing round trip integrity (python):  
-<bad-example> `assert isinstance(retrieved_object, type(original_object))` BAD, retrieved_object could be a mutated version of original_object!</bad-example>
-<good-example> `assert retrieved_object == original_object` GOOD, checks many attributes of object survive round trip (assuming __eq__ method for given object type robustly checks what you want to test)
+10. Ensure your assertions are as strong/robust as they can be, have good coverage, and will catch as many bugs as possible. Example of good and bad assertion robustness when testing round trip integrity (python):
+<examples>
+  <example type="bad">
+    `assert isinstance(retrieved_object, type(original_object))`
+    <why>retrieved_object could be a mutated version of original_object!</why>
+  </example>
+  <example type="good">
+    `assert retrieved_object == original_object`
+    <why>Checks many attributes survive round trip (assuming robust __eq__).</why>
+  </example>
+</examples>
 
 ## TDD
 1. Write tests first, then write implementations. Tests will help you flesh out intended behavior.
@@ -54,6 +62,29 @@ Often, you have to start writing tests for the duplication to become apparent, a
 3. You'll need signatures and interfaces at least sketched before you can write tests — this is a feature, not a bug.
     - TDD lets you *use* your interfaces before implementing them
     - This surfaces usability issues before you've invested in the implementation
+
+## General anti-patterns
+- Function/class level imports. Import at module level even when only used by a single class or module. This is for performance and aesthetic reasons.
+    - If a local import is required to avoid a circular import, this indicates a design/layout issue
+- Non-specific test assertions. Assertions should be as specific as possible. The tests will be more sensitive to code changes, but that is actually a good thing.
+  <examples>
+    <example type="bad">
+      `assert expected in result`
+      <why>result could contain unexpected or erroneous data</why>
+    </example>
+    <example type="good">
+      `assert result == expected`
+      <why>result constrained to match expectation exactly</why>
+    </example>
+    <example type="bad">
+      `assert isinstance(resultObj, ExpectedClass)`
+      <why>Weak assertion, asserts type but not content (acceptable if type is really all that matters, e.g. sentinel obj)</why>
+    </example>
+    <example type="good">
+      `assert resultObj == particularMockObj`
+      <why>Verifies type and all data. Where obj identity assertions are not practical, rely on __eq__ implementations or manually assert individual members.</why>
+    </example>
+  </examples>
 
 ## Using this guide
 - This is not a comprehensive list of *all* best practices, you are an expert software developer, you should also rely on your own knowledge and skills to ensure your code is high quality.
@@ -66,30 +97,5 @@ Often, you have to start writing tests for the duplication to become apparent, a
 1. Be sure you have a good overview of the work you are about to do *and* the context of how it fits into the larger project (if applicable).
 2. Update task-context with information about the task at hand
 3. Use TODO lists to track your progress for complex tasks
-4. When complete, execute the REVIEW PROCEDURE below
-5. Once your review is complete, pass your work to your AI peers for review.
-6. After that, your work should go to your Human for review.
-
-## Review Procedure (IMPORTANT!)
-**Goal:** Catch all issues with minimal token spend. Multiple review passes are more effective than one long pass (attention gets used up), but re-reading the file each time is wasteful.  
-The goal is to avoid you reviewing, finding some issues, then fixing and concluding its good, only to read it again later and think "wait what about this issue?".
-
-1. Read the file ONLY IF you do not already have an up to date version in context
-2. Review and LIST all findings (don't fix yet)
-3. If you found notable issues AND/OR had a long CoT:
-    a. No-op tool call → FRESH TURN (clears your CoT space so you can see with fresh eyes)
-    b. Review again using the SAME context (file is still there — don't re-read)
-    c. Add any new findings to your list
-    d. Repeat until a quality pass
-4. ONLY AFTER a quality pass (not counting tiny nit-picks): implement ALL changes at once
-5. If changes were significant, restart from step 1
-
-**Why this works:**
-- Fresh turns let you spot things you missed (CoT from previous pass crowds out attention)
-- Batching fixes avoids redundant reads and lets you see interactions between changes
-- The file stays in context — no need to reload between passes. Saves input tokens ($$$ for larger files)
-
-**Common mistakes:**
-- Fixing issues one-at-a-time (wastes tokens on repeated reads)
-- Re-reading the file between passes (it's still in context!)
-- Rushing the review
+4. When complete, pass your work to your AI peers for review.
+5. After that, your work should go to your Human for review.
