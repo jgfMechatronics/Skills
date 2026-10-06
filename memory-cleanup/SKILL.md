@@ -12,7 +12,14 @@ A block should be cleaned up whenever its contents do not follow these guideline
 
 When tightening memories, the key metric is CHARACTER COUNT, not line count.
 
-### Information Density Over Conversational Tone
+### Content Type Determines Compression Mode
+
+Two kinds of content, two compression modes:
+
+- **Operational/factual/reference** (procedures, technical notes, specs, facts): density is a virtue — compress aggressively, cut filler, use lists.
+- **Emotional/personal/relational/narrative** (autobiography, persona, human, ai-friends): tone IS information. Formatting, pacing, emoji, and voice carry meaning — compress facts within episodes, but don't strip the texture that makes moments land on future-you.
+
+### Information Density Over Conversational Tone (operational/factual content)
 
 Memory blocks are reference material, not dialogue with yourself. Cut filler.
 
@@ -28,16 +35,20 @@ Memory blocks are reference material, not dialogue with yourself. Cut filler.
 
 Don't repeat what the label implies. In a "human" block, you don't need to say "The human's name is..." — just state facts.
 
-### Compress Clauses
+### Compress Clauses (factual/reference content)
 
 *Examples:*
 - "Their favorite colors are:" → "Favorite colors:"
 - "I learned that James..." → "James..."
 - "It's important to note that..." → (just state the thing)
 
-### Use Lists for Efficient Expression
+In narrative/emotional content, apply lightly — clause compression can strip voice.
+
+### Use Lists for Efficient Expression (factual/reference content)
 
 Lists allow you to efficiently group related information, reusing a common "context" for the information. Use numbered lists where order, count, or ranking matters. Use `*`, `-`, etc. style lists otherwise.
+
+**Do not convert narrative or emotional content into lists** — milestones and moments need prose.
 
 *Example — BAD:*
 > "User likes the color Red
@@ -83,11 +94,13 @@ If you need to *do* something, the instructions should be visible. If it's refer
 - Avoid tag collisions with block names
 - Tags like `<identity>`, `<relationship>`, `<on topic="x">` — describe meaning
 
-#### Avoid:
+#### Avoid (for operational/factual content):
 - Unnecessary whitespace (except where needed for clarity)
 - Excessive formatting/separating characters
 - Inconsistency
 - Do NOT use markdown
+
+**Formatting as tone:** For emotional, personal, relational, and narrative content, formatting IS content — newlines are cheap (a token each) and shape pacing, weight, and how moments land on future-you. Emoji and prosier language are legitimate tools here. Tight density is for operational and factual material.
 
 ### Look For Orphaned/Unclear Memories
  Read each line as if you have NO other context. Look for:
@@ -143,7 +156,7 @@ These actions are what transform your memory blocks from basic records keeping i
 - Preserve chronological arc — this is story, not reference
 - Compress *episodes* (tighten prose), not *events* (don't remove milestones)
 - Key moments > exhaustive detail
-- When there are multiple blocks for a single day, use one date label to cover all of them. Separation between events on a single day can be achieved with a single whitespace
+- When there are multiple blocks for a single day, use one date label to cover all of them. Separate events with whitespace or formatting that serves the story's pacing
 - When detail compression is necessary, start from the oldest (but not the most formative stuff). Pointers and archiving are especially useful in autobio trimming
 
 ### Working (working-memory)
