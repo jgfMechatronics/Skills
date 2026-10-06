@@ -85,6 +85,8 @@ Often, you have to start writing tests for the duplication to become apparent, a
       <why>Verifies type and all data. Where obj identity assertions are not practical, rely on __eq__ implementations or manually assert individual members.</why>
     </example>
   </examples>
+- Silently swallowing exceptions (CRITICAL!!!). Never silently swallow exceptions. Exceptions should only be caught and not re-raised if they are specific exceptions we want the catching code to handle. If the code encounters an unexpected condition it should always fail loudly, either through re-raising or other forms of communicating an error.
+  Exceptions and crashes are, of course, annoying, but not NEARLY annoying as code that has silent bad behavior for an unknown, hard to find reason. Exceptions are your friend!
 
 ## Using this guide
 - This is not a comprehensive list of *all* best practices, you are an expert software developer, you should also rely on your own knowledge and skills to ensure your code is high quality.
